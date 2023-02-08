@@ -494,6 +494,7 @@ files = [
     {file = "debugpy-1.6.6-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:9b5d1b13d7c7bf5d7cf700e33c0b8ddb7baf030fcf502f76fc061ddd9405d16c"},
     {file = "debugpy-1.6.6-cp38-cp38-win32.whl", hash = "sha256:70ab53918fd907a3ade01909b3ed783287ede362c80c75f41e79596d5ccacd32"},
     {file = "debugpy-1.6.6-cp38-cp38-win_amd64.whl", hash = "sha256:c05349890804d846eca32ce0623ab66c06f8800db881af7a876dc073ac1c2225"},
+    {file = "debugpy-1.6.6-cp39-cp39-macosx_11_0_x86_64.whl", hash = "sha256:11a0f3a106f69901e4a9a5683ce943a7a5605696024134b522aa1bfda25b5fec"},
     {file = "debugpy-1.6.6-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:a771739902b1ae22a120dbbb6bd91b2cae6696c0e318b5007c5348519a4211c6"},
     {file = "debugpy-1.6.6-cp39-cp39-win32.whl", hash = "sha256:549ae0cb2d34fc09d1675f9b01942499751d174381b6082279cf19cdb3c47cbe"},
     {file = "debugpy-1.6.6-cp39-cp39-win_amd64.whl", hash = "sha256:de4a045fbf388e120bb6ec66501458d3134f4729faed26ff95de52a754abddb1"},
@@ -1620,20 +1621,8 @@ description = "PyInstaller bundles a Python application and all its dependencies
 category = "dev"
 optional = false
 python-versions = "<3.12,>=3.7"
-files = [
-    {file = "pyinstaller-5.7.0-py3-none-macosx_10_13_universal2.whl", hash = "sha256:b967ae71ab7b05e18608dbb4518da5afa54f0835927cb7a5ce52ab8fffed03b6"},
-    {file = "pyinstaller-5.7.0-py3-none-manylinux2014_aarch64.whl", hash = "sha256:3180b9bf22263380adc5e2ee051b7c21463292877215bbe70c9155dc76f4b966"},
-    {file = "pyinstaller-5.7.0-py3-none-manylinux2014_i686.whl", hash = "sha256:0f80e2403e76630ad3392c71f09c1a4284e8d8a8a99fb55ff3a0aba0e06300ed"},
-    {file = "pyinstaller-5.7.0-py3-none-manylinux2014_ppc64le.whl", hash = "sha256:2c1dd9d11cfc48bab61eeb06de69a3d1ad742bbb2ef14716965ca0333dd43a5b"},
-    {file = "pyinstaller-5.7.0-py3-none-manylinux2014_s390x.whl", hash = "sha256:dfc12e92fe10ae645dd0dd1fcfa4cd7677b2e96119e3cd4980d742e09bb78925"},
-    {file = "pyinstaller-5.7.0-py3-none-manylinux2014_x86_64.whl", hash = "sha256:f35f06d48faea0ad738429c009941059beebaa306e9d9ead95f1df4b441de2aa"},
-    {file = "pyinstaller-5.7.0-py3-none-musllinux_1_1_aarch64.whl", hash = "sha256:28a8a0da656493aa32d9665e2f6f84775da0f23174859ed8facaa4226fe77a17"},
-    {file = "pyinstaller-5.7.0-py3-none-musllinux_1_1_x86_64.whl", hash = "sha256:1ac3f09b838710c43e34b0a7ad003bd168a754b0b786c561b47baf1af9104354"},
-    {file = "pyinstaller-5.7.0-py3-none-win32.whl", hash = "sha256:9cdb8ee8622ee8d2c6cd67f001b610019d4371a8bf3f7850562640ce786894d7"},
-    {file = "pyinstaller-5.7.0-py3-none-win_amd64.whl", hash = "sha256:9b47c10fbefac6f6493266f8b1689109b2b14efa9142dbd2cd7549226a4568b7"},
-    {file = "pyinstaller-5.7.0-py3-none-win_arm64.whl", hash = "sha256:3e51e18a16dec0414079762843cf892a5d70749ad56ca7b3c7b5f8367dc50b1e"},
-    {file = "pyinstaller-5.7.0.tar.gz", hash = "sha256:0e5953937d35f0b37543cc6915dacaf3239bcbdf3fd3ecbb7866645468a16775"},
-]
+files = []
+develop = false
 
 [package.dependencies]
 altgraph = "*"
@@ -1646,6 +1635,12 @@ setuptools = ">=42.0.0"
 [package.extras]
 encryption = ["tinyaes (>=1.0.0)"]
 hook-testing = ["execnet (>=1.5.0)", "psutil", "pytest (>=2.7.3)"]
+
+[package.source]
+type = "git"
+url = "https://github.com/rokm/pyinstaller.git"
+reference = "glib-schema-compilation"
+resolved_reference = "98319622f8bac4cd1dafd876fc841378cb213760"
 
 [[package]]
 name = "pyinstaller-hooks-contrib"
@@ -2598,4 +2593,4 @@ docs = ["sphinx", "sphinx-copybutton", "myst-nb", "furo"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<3.12"
-content-hash = "5283f397637cd904aaa09cf4ff7c4fc4fd27189ccc84fc5ee0203dfb12a26fb4"
+content-hash = "55e1de17e511fdb764f0508385a4805f4c3de434b419cb6d57421b5b4ee0299f"
