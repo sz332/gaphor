@@ -7,14 +7,9 @@ from pathlib import Path
 
 from gaphor.abc import ActionProvider, Service
 from gaphor.core import action, gettext
-from gaphor.ui.filedialog import open_file_dialog
+from gaphor.ui.filedialog import GAPHOR_FILTER, open_file_dialog
 
 log = logging.getLogger(__name__)
-
-
-FILTERS = [
-    (gettext("All Gaphor Models"), "*.gaphor", "application/x-gaphor"),
-]
 
 
 class AppFileManager(Service, ActionProvider):
@@ -74,5 +69,5 @@ class AppFileManager(Service, ActionProvider):
             open_files,
             parent=self.window,
             dirname=self.last_dir,
-            filters=FILTERS,
+            filters=GAPHOR_FILTER,
         )
