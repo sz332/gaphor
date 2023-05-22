@@ -22,17 +22,12 @@ def new_filter(name, pattern, mime_type=None):
     return f
 
 
-def _file_dialog_with_filters(title, parent, action, filters) -> Gtk.FileChooserNative:
-    dialog = Gtk.FileChooserNative.new(title, parent, action, None, None)
-
-    if parent:
-        dialog.set_transient_for(parent)
-
-    if sys.platform != "darwin":
-        for name, pattern, mime_type in filters:
-            dialog.add_filter(new_filter(name, pattern, mime_type))
-        dialog.add_filter(new_filter(gettext("All Files"), "*"))
-    return dialog
+def new_filters(filters):
+    store = Gio.ListStore.new(Gtk.FileFilter)
+    for name, pattern, mime_type in filters:
+        store.append(new_filter(name, pattern, mime_type))
+    store.append(new_filter(gettext("All Files"), "*"))
+    return store
 
 
 def open_file_dialog(title, handler, parent=None, dirname=None, filters=None) -> None:
@@ -43,14 +38,7 @@ def open_file_dialog(title, handler, parent=None, dirname=None, filters=None) ->
         dialog.set_initial_folder(Gio.File.parse_name(dirname))
 
     if filters:
-        store = Gio.ListStore.new(Gtk.FileFilter)
-        for name, pattern, mime_type in filters:
-            filter = Gtk.FileFilter.new()
-            filter.set_name(name)
-            filter.add_pattern(pattern)
-            filter.add_mime_type(mime_type)
-            store.append(filter)
-        dialog.set_filters(store)
+        dialog.set_filters(new_filters(filters))
 
     def response(dialog, result):
         files = dialog.open_multiple_finish(result)
@@ -67,40 +55,23 @@ def save_file_dialog(
     extension=None,
     filters=None,
 ) -> Gtk.FileChooser:
-    if filters is None:
-        filters = []
-    dialog = _file_dialog_with_filters(
-        title, parent, Gtk.FileChooserAction.SAVE, filters
-    )
+    dialog = Gtk.FileDialog.new()
 
-    def get_filename() -> Path:
-        return Path(dialog.get_file().get_path())
+    if filename:
+        dialog.set_initial_file(Gio.File.parse_name(str(filename)))
 
-    def set_filename(filename: Path):
-        dialog.set_current_name(str(filename.name))
+    if filters:
+        dialog.set_filters(new_filters(filters))
 
-    def overwrite_check() -> Path | None:
-        filename = get_filename()
+    def response(dialog, result):
+        filename = Path(dialog.save_finish(result).get_path())
         if extension and filename.suffix != extension:
             filename = filename.with_suffix(extension)
-            set_filename(filename)
-            return None if filename.exists() else filename
-        return filename
+            if filename.exists():
+                dialog.set_initial_file(Gio.File.parse_name(str(filename)))
+                dialog.save(parent=parent, cancellable=None, callback=response)
+                return
+        handler(filename)
 
-    def response(_dialog, answer):
-        if answer == Gtk.ResponseType.ACCEPT:
-            if filename := overwrite_check():
-                dialog.destroy()
-                handler(filename)
-            else:
-                dialog.set_visible(True)
-        else:
-            dialog.destroy()
-
-    dialog.connect("response", response)
-    if filename:
-        set_filename(filename)
-        dialog.set_current_folder(Gio.File.parse_name(str(filename.parent)))
-    dialog.set_modal(True)
-    dialog.show()
+    dialog.save(parent=parent, cancellable=None, callback=response)
     return dialog
