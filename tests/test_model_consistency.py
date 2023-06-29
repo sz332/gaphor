@@ -102,6 +102,9 @@ def tooldef():
     )
 
 
+@reproduce_failure(
+    "6.80.0", b"AXicY2BgYGBkZ2TnYIQCBiDiZmSAASALLg6SYcApA9eDpAZDEQuKFBOSFAMbAwAsoQCT"
+)
 class ModelConsistency(RuleBasedStateMachine):
     @property
     def model(self) -> ElementFactory:
