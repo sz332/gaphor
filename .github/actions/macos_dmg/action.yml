@@ -10,11 +10,11 @@ inputs:
   certpassword_p12:
     description: 'certpassword_p12'
     required: true
-  ac_username:
-    description: 'ac_usernmame'
+  apple_notary_user:
+    description: 'apple_notary_user'
     required: true
-  ac_password:
-    description: 'ac_password'
+  apple_app_specific_password:
+    description: 'apple_app_specific_password'
     required: true
   sign_app:
     description: 'Build is performed on the main line'
@@ -49,11 +49,16 @@ runs:
       shell: bash
     - name: Notarize app
       if: inputs.sign_app == 'true'
-      uses: BoundfoxStudios/action-xcode-notarize@v1.1
+      uses: lando/code-sign-action@v2.1.1
       with:
-        product-path: "_packaging/dist/Gaphor.app"
-        appstore-connect-username: ${{ inputs.ac_username }}
-        appstore-connect-password: ${{ inputs.ac_password }}
+        file: "_packaging/dist/Gaphor.app"
+        certificate-data: ${{ inputs.base64_encoded_p12 }}
+        certificate-password: ${{ inputs.certpassword_p12 }}
+        apple-notary-user: ${{ inputs.apple_notary_user }}
+        apple-notary-password: ${{ inputs.apple_app_specific_password }}
+        apple-team-id: Z7V37BLNR9
+        apple-product-id: org.gaphor.gaphor
+        options: --options runtime --entitlements entitlements.xml
     - name: Staple app
       if: inputs.sign_app == 'true'
       uses: BoundfoxStudios/action-xcode-staple@v1
@@ -73,12 +78,16 @@ runs:
       shell: bash
     - name: Notarize dmg
       if: inputs.sign_app == 'true'
-      uses: BoundfoxStudios/action-xcode-notarize@v1.1
+      uses: lando/code-sign-action@v2.1.1
       with:
-        product-path: "_packaging/dist/Gaphor-${{ inputs.version }}.dmg"
-        appstore-connect-username: ${{ inputs.ac_username }}
-        appstore-connect-password: ${{ inputs.ac_password }}
-        primary-bundle-id: org.gaphor.gaphor
+        file: "_packaging/dist/Gaphor-${{ inputs.version }}.dmg"
+        certificate-data: ${{ inputs.base64_encoded_p12 }}
+        certificate-password: ${{ inputs.certpassword_p12 }}
+        apple-notary-user: ${{ inputs.apple_notary_user }}
+        apple-notary-password: ${{ inputs.apple_app_specific_password }}
+        apple-team-id: Z7V37BLNR9
+        apple-product-id: org.gaphor.gaphor
+        options: --options runtime --entitlements entitlements.xml
     - name: Staple .dmg
       if: inputs.sign_app == 'true'
       uses: BoundfoxStudios/action-xcode-staple@v1
