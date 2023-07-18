@@ -45,8 +45,23 @@ runs:
       if: github.event_name == 'release'
       run: poetry run poe gettext-mo-release
       shell: bash
-    - name: Test with Pytest
+    - name: Test
+      if: runner.os != 'Linux'
       env:
         PYTHONWARNDEFAULTENCODING: 'true'
-      run: ${{ runner.os == 'Linux' && 'xvfb-run' || '' }} poetry run pytest --cov
+      run: poetry run pytest --cov
+      shell: bash
+    - name: Test on X11
+      if: runner.os == 'Linux'
+      env:
+        PYTHONWARNDEFAULTENCODING: 'true'
+      run: GDK_BACKEND=x11 xvfb-run poetry run pytest --cov
+      shell: bash
+    - name: Test on Wayland
+      if: runner.os == 'Linux'
+      env:
+        PYTHONWARNDEFAULTENCODING: 'true'
+      run: |
+        weston --backend=headless-backend.so --socket=wayland-pytest --no-outputs &
+        GDK_BACKEND=wayland WAYLAND_DISPLAY=wayland-pytest poetry run pytest --cov
       shell: bash
