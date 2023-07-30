@@ -21,6 +21,7 @@ from gaphor.UML.interactions.interactionstoolbox import interactions
 from gaphor.UML.states.statestoolbox import states
 from gaphor.UML.toolboxconfig import named_element_config
 from gaphor.UML.usecases.usecasetoolbox import use_cases
+from gaphor.SysML.viewpoints.viewpointstoolbox import viewpoints
 
 internal_blocks = ToolSection(
     gettext("Internal Blocks"),
@@ -61,6 +62,7 @@ sysml_toolbox_actions: ToolboxDefinition = (
     interactions,
     states,
     use_cases,
+    viewpoints
 )
 
 

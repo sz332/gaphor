@@ -285,3 +285,26 @@ def create_item_flow(subject: UML.Association | sysml.Connector) -> sysml.ItemFl
         iflow.informationTarget = subject.memberEnd[1]
     iflow.itemProperty = subject.model.create(sysml.Property)
     return iflow
+
+@PropertyPages.register(sysml.Stakeholder)
+class StakeholderPropertyPage(PropertyPageBase):
+    order = 40
+
+    def __init__(self, subject):
+        self.subject = subject
+
+    def construct(self):
+
+        builder = new_builder(
+            "stakeholder-editor",
+            signals={"abstract-changed": (self._on_abstract_change,)},
+        )
+
+        abstract = builder.get_object("abstract")
+        abstract.set_active(self.subject.isAbstract)
+
+        return builder.get_object("stakeholder-editor")
+    
+    @transactional
+    def on_abstract_change(self, button, gparam):
+        self.subject.isAbstract = button.get_active()
