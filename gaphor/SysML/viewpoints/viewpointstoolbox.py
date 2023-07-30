@@ -12,7 +12,7 @@ viewpoints = ToolSection(
         ToolDef(
             "toolbox-stakeholder",
             gettext("Stakeholder"),
-            "gaphor-requirement-symbolic",
+            "gaphor-comment-symbolic",
             None,
             new_item_factory(StakeholderItem, Stakeholder)
         ),

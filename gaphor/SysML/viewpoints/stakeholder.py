@@ -6,7 +6,6 @@ from gaphor.diagram.presentation import (
 )
 from gaphor.diagram.shapes import (
     Box,
-    JustifyContent,
     Text,
     draw_border
 )

@@ -296,15 +296,7 @@ class StakeholderPropertyPage(PropertyPageBase):
     def construct(self):
 
         builder = new_builder(
-            "stakeholder-editor",
-            signals={"abstract-changed": (self._on_abstract_change,)},
+            "stakeholder-editor"
         )
 
-        abstract = builder.get_object("abstract")
-        abstract.set_active(self.subject.isAbstract)
-
         return builder.get_object("stakeholder-editor")
-    
-    @transactional
-    def on_abstract_change(self, button, gparam):
-        self.subject.isAbstract = button.get_active()
