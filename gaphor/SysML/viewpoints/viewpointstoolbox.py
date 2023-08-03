@@ -4,7 +4,9 @@ from gaphor.core import gettext
 from gaphor.diagram.diagramtoolbox import ToolDef, ToolSection, new_item_factory
 from gaphor.SysML.viewpoints.stakeholder import StakeholderItem
 
-from gaphor.SysML.sysml import Stakeholder
+from gaphor.SysML.sysml import Stakeholder, Viewpoint
+
+from gaphor.SysML.viewpoints.viewpoint import ViewpointItem
 
 viewpoints = ToolSection(
     gettext("Viewpoints"),
@@ -21,7 +23,7 @@ viewpoints = ToolSection(
             gettext("Viewpoint"),
             "gaphor-requirement-symbolic",
             None,
-            None
+            new_item_factory(ViewpointItem, Viewpoint)
         ),
         ToolDef(
             "toolbox-view",

@@ -300,3 +300,19 @@ class StakeholderPropertyPage(PropertyPageBase):
         )
 
         return builder.get_object("stakeholder-editor")
+    
+@PropertyPages.register(sysml.Viewpoint)
+class ViewpointPropertyPage(PropertyPageBase):
+    order = 40
+
+    def __init__(self, subject):
+        self.subject = subject
+
+    def construct(self):
+
+        builder = new_builder(
+            "viewpoint-editor"
+        )
+
+        return builder.get_object("viewpoint-editor")
+    

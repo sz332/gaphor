@@ -239,4 +239,14 @@
     </style>
   </object>
 
+  <object class="GtkBox" id="viewpoint-editor">
+    <property name="orientation">vertical</property>
+    <child>
+    </child>
+    <style>
+      <class name="propertypage"/>
+    </style>
+  </object>
+
+
 </interface>
