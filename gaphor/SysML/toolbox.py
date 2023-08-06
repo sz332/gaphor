@@ -23,7 +23,7 @@ from gaphor.SysML.sysml import Block, ConstraintBlock, Requirement
 from gaphor.UML.uml import Package, Activity, Interaction, StateMachine
 from gaphor.SysML.diagramtype import SysMLDiagramType, DiagramDefault
 
-from gaphor.SysML.viewpoints.viewpointstoolbox import viewpoint
+from gaphor.SysML.viewpoints.viewpointstoolbox import viewpoints
 
 internal_blocks = ToolSection(
     gettext("Internal Blocks"),
