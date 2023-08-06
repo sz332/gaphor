@@ -303,7 +303,7 @@ class StakeholderPropertyPage(PropertyPageBase):
     
 @PropertyPages.register(sysml.Viewpoint)
 class ViewpointPropertyPage(PropertyPageBase):
-    order = 40
+    order = 41
 
     def __init__(self, subject):
         self.subject = subject

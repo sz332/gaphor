@@ -195,10 +195,10 @@ class Viewpoint(Class):
     concernList: relation_many[Comment]
     language: _attribute[str] = _attribute("language", str)
     method: relation_many[Behavior]
-    presentation: _attribute[str] = _attribute("presentation", str)
+    #FIXME Renamed because of SysML and Gaphor name collision
+    presentationText: _attribute[str] = _attribute("presentationText", str)
     purpose: _attribute[str] = _attribute("purpose", str)
     stakeholder: relation_many[Stakeholder]
-
 
 class Stakeholder(Classifier):
     concernList: relation_many[Comment]
